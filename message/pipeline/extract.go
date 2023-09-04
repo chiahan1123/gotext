@@ -108,10 +108,12 @@ func Extract(c *Config) (*State, error) {
 				key := []string{}
 				if ident, ok := args[0].(*ast.Ident); ok {
 					key = append(key, ident.Name)
-					if v, ok := ident.Obj.Decl.(*ast.ValueSpec); ok && v.Comment != nil {
-						// TODO: get comment above ValueSpec as well
-						comment = v.Comment.Text()
-					}
+					if ident.Obj != nil {
+            if v, ok := ident.Obj.Decl.(*ast.ValueSpec); ok && v.Comment != nil {
+						  // TODO: get comment above ValueSpec as well
+						  comment = v.Comment.Text()
+					  }
+          }
 				}
 
 				arguments := []argument{}
